@@ -1,0 +1,25 @@
+﻿
+<div class="pen-title">
+    <h1>Company Selection Form</h1>
+</div>
+<!-- Form Module-->
+<div class="module form-module">
+    <div class="toggle">
+        <i class="fa fa-times fa-pencil"></i>
+        <div class="tooltip">Click Me</div>
+    </div>
+    <div class="form">
+        <h2>Login to your account</h2>
+        <form>
+
+            @if (list != null && selectedCompany!=null)
+            {
+                <SfAutoComplete TValue="CompanyResponse" TItem="CompanyResponse" DataSource="@list" @bind-Value="@selectedCompany">
+                    <AutoCompleteFieldSettings Value="CompanyName"></AutoCompleteFieldSettings>
+                </SfAutoComplete>
+                <button @onclick=ProcessCompanySelection>Login</button>
+            }
+            
+        </form>
+    </div>
+</div>
