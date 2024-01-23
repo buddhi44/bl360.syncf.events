@@ -18,6 +18,11 @@
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Data
 @using bl360.domain
+@using bl360.ui.Components.SyncFComponents
+@using bl360.ui.Components.BL
+@using Syncfusion.Blazor.Notifications
+@using bl360.clientInfrastructure.Managers.ComboDataManager
+@using bl360.clientInfrastructure.Managers.NavMenuManager
 
 @inject IAuthenticationManager _authenticationManager
 @inject BL10AuthProvider _stateProvider
@@ -26,3 +31,5 @@
 @inject IStorageService _storageService
 @inject IStorageService _localStorage
 @inject ICompanyManager _companyManager
+@inject IComboDataManager _comboManager;
+@inject INavMenuManager _navManger;

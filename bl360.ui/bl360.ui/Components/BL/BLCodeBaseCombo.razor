@@ -1,0 +1,17 @@
+﻿
+
+    @if (CodeBaseResponses == null)
+    {
+        <SfSkeleton CssClass="skeletonText" Shape=SkeletonType.Text Width="100%" Height="15px"></SfSkeleton>
+    }
+    else
+    {
+        <SfAutoComplete TValue="CodeBaseResponse" TItem="CodeBaseResponse" DataSource="@CodeBaseResponses" @bind-Value="@selectedCodeBase">
+            <AutoCompleteFieldSettings Value="CodeName"></AutoCompleteFieldSettings>
+            <AutoCompleteEvents TValue="string" TItem="CodeBaseResponse" Filtering="OnFilter" />
+        </SfAutoComplete>
+
+    }
+
+
+
