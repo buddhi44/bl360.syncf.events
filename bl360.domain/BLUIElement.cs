@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace bl360.domain
 {
+    public class ObjectFormRequest
+    {
+        public long MenuKey { get; set; }
+
+    }
     public class BLUIElement
     {
         public string _internalElementName { get; set; } = "";
