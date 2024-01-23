@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
 
 namespace bl360.maui
 {
@@ -15,6 +16,8 @@ namespace bl360.maui
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddSyncfusionBlazor();
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCfEx3RHxbf1x0ZFBMYF5bRnBPMyBoS35RckViWH1edXRXRGdbUkZ3");
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();

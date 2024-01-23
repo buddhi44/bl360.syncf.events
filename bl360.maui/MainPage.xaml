@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:bl360.maui"
              x:Class="bl360.maui.MainPage"
+             xmlns:externComp="clr-namespace:bl360.ui;assembly=bl360.ui"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
-            <RootComponent Selector="#app" ComponentType="{x:Type local:Routes}" />
+            <RootComponent Selector="#app" ComponentType="{x:Type externComp:App}" />
         </BlazorWebView.RootComponents>
     </BlazorWebView>
 
