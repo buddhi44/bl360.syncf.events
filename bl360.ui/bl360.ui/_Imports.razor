@@ -10,3 +10,16 @@
 @using bl360.ui.Layout
 @using bl360.ui.Components
 @using Syncfusion.Blazor
+@using bl360.clientInfrastructure.Managers.AuthenticationManager
+@using bl360.clientInfrastructure.Authentication
+@using bl360.clientInfrastructure.Services
+@using bluelotus360.Com.commonLib.Managers.Company
+@using bl360.ui.Pages
+
+@inject IAuthenticationManager _authenticationManager
+@inject BL10AuthProvider _stateProvider
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jsRuntime;
+@inject IStorageService _storageService
+@inject IStorageService _localStorage
+@inject ICompanyManager _companyManager

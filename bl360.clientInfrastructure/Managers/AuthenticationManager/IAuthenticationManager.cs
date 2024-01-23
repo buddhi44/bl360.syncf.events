@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace bl360.clientInfrastructure.Managers.AuthenticationManager
 {
-    public interface IAuthenticationManager
+    public interface IAuthenticationManager:IManager
     {
         Task<TokenResponse> Login(TokenRequest model);
         Task Logout();

@@ -22,14 +22,15 @@ namespace bl360.clientInfrastructure.Managers.AuthenticationManager
         private readonly HttpClient _httpClient;
         private readonly IStorageService _localStorage;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
-
-        public AuthenticationManager(HttpClient httpClient,
-            IStorageService localStorage, AuthenticationStateProvider authenticationStateProvider)
+		private readonly IHttpClientFactory _factory;
+		public AuthenticationManager(HttpClient httpClient,
+            IStorageService localStorage, AuthenticationStateProvider authenticationStateProvider, IHttpClientFactory factory)
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
             _authenticationStateProvider = authenticationStateProvider;
-            if (_httpClient.DefaultRequestHeaders.Contains("IntegrationID"))
+			_factory = factory;
+			if (_httpClient.DefaultRequestHeaders.Contains("IntegrationID"))
             {
                 _httpClient.DefaultRequestHeaders.Remove("IntegrationID");
             }
@@ -38,7 +39,7 @@ namespace bl360.clientInfrastructure.Managers.AuthenticationManager
         }
 
 
-        public async Task<ClaimsPrincipal> CurrentUser()
+		public async Task<ClaimsPrincipal> CurrentUser()
         {
             var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
             return state.User;
@@ -71,37 +72,47 @@ namespace bl360.clientInfrastructure.Managers.AuthenticationManager
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(TokenEndpoints.AuthenticateURL, model);
-                var content = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<TokenResponse>(content);
-
-                // var result = await response.ToResult<TokenResponse>();
-                if (result != null && result.IsSuccess)
+				var cl = _factory.CreateClient();
+				cl.BaseAddress = _httpClient.BaseAddress;
+				cl.DefaultRequestHeaders.Add("IntegrationID", GlobalConsts.intergrationId);
+				var response = await cl.PostAsJsonAsync(TokenEndpoints.AuthenticateURL, model);
+                if (response != null)
                 {
-                    var token = result.Token ?? "";
-                    var refreshToken = result.RefreshToken ?? "";
-                    var userImageURL = result.UserImageURL ?? "";
-                    await _localStorage.SetItemAsync(StorageConstants.Local.AuthToken, token);
-                    await _localStorage.SetItem(StorageConstants.Local.RefreshToken, refreshToken);
+					var content = await response.Content.ReadAsStringAsync();
+					var result = JsonConvert.DeserializeObject<TokenResponse>(content);
 
-                    if (!string.IsNullOrEmpty(userImageURL))
-                    {
-                        await _localStorage.SetItemAsync(StorageConstants.Local.UserImageURL, userImageURL);
-                    }
-                    // c = _authenticationStateProvider.GetType();
+					if (result != null && result.IsSuccess)
+					{
+						var token = result.Token ?? "";
+						var refreshToken = result.RefreshToken ?? "";
+						var userImageURL = result.UserImageURL ?? "";
+						await _localStorage.SetItemAsync(StorageConstants.Local.AuthToken, token);
+						await _localStorage.SetItem(StorageConstants.Local.RefreshToken, refreshToken);
 
-                    await((BL10AuthProvider)this._authenticationStateProvider).StateChangedAsync();
+						if (!string.IsNullOrEmpty(userImageURL))
+						{
+							await _localStorage.SetItemAsync(StorageConstants.Local.UserImageURL, userImageURL);
+						}
+						// c = _authenticationStateProvider.GetType();
 
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+						await ((BL10AuthProvider)this._authenticationStateProvider).StateChangedAsync();
 
-                    
+						_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                    return result;
-                }
+
+
+						return result;
+					}
+					else
+					{
+						return new TokenResponse();
+					}
+				}
                 else
                 {
-                    return new TokenResponse();
-                }
+					return new TokenResponse();
+				}
+                
             }
 
             catch
@@ -117,6 +128,8 @@ namespace bl360.clientInfrastructure.Managers.AuthenticationManager
             await _localStorage.RemoveItem(StorageConstants.Local.UserImageURL);
             await _localStorage.RemoveItem(StorageConstants.Local.CompanyName);
             await _localStorage.RemoveItem(StorageConstants.Local.SelectedShift);
+
+           
         }
 
         public async Task<string> RefreshToken()

@@ -1,320 +1,37 @@
-﻿@inherits LayoutComponentBase
-@inject IJSRuntime JS
-@using Syncfusion.Blazor.Navigations
-@using Syncfusion.Blazor.Buttons
-@using Syncfusion.Blazor.Lists
-<SfSidebar ID="Sidebar" Type="SidebarType.Push" Width="300px" DockSize="65px" EnableDock="true" @ref="Sidebar" @bind-IsOpen="SidebarToggle">
-    <div class="sidebar" style="position:fixed;z-index:1200">
-        <div class="topnav navbar navbar-dark">
-            <button class="navbar-toggler" @onclick="ToggleNavMenu" />
-            <a class="navbar-brand" href=""><span class="displayText" style="margin-right:30px">bl360.ui</span></a>
-        </div>
-        <div @onmouseover="MouseIn" @onmouseout="MouseOut">
-            <NavMenu />
-        </div>
-    </div>
-</SfSidebar>
-<div class="main">
-    <SfToolbar CssClass="defaultToolbar">
-        <ToolbarItems>
-
-            <ToolbarItem Align="@ItemAlign.Right">
-                <Template>
-                    <div>
-                        <div class="e-user-name">John</div>
-                    </div>
-                </Template>
-            </ToolbarItem>
-            <ToolbarItem CssClass="e-custom" Align="@ItemAlign.Right">
-                <Template>
-                    <div class="image-container">
-                        @* <img height="20px" src="@(SampleService.WebAssetsPath + "images/sidebar/user.svg")" alt="John" /> *@
-                        <img height="50px" src="data:image/png;base64,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">
-                    </div>
-                </Template>
-            </ToolbarItem>
-        </ToolbarItems>
-    </SfToolbar>
-
-    <div class="content px-4">
-        @Body
-    </div>
-</div>
-
-
-@code
-{
-	SfSidebar? Sidebar;
-    SfButton MenuBtnObj;
-	public bool SidebarToggle = false; 
-	public bool SidebarToggleFixed = false; 
-	public void ToggleNavMenu() 
-    { 
-		SidebarToggle = !SidebarToggle; 
-		SidebarToggleFixed = !SidebarToggleFixed; 
-	} 
-	public async Task MouseIn(Microsoft.AspNetCore.Components.Web.MouseEventArgs args) 
-	{ 
-		var isSidebar = await JS.InvokeAsync<bool>("isSidebar", args.ClientX, args.ClientY); 
-		if (!SidebarToggle && isSidebar) 
-		{ 
-			SidebarToggle = true; 
-		} 
-	} 
-	public async Task MouseOut(Microsoft.AspNetCore.Components.Web.MouseEventArgs args) 
-	{ 
-		var isSidebar = await JS.InvokeAsync<bool>("isSidebar", args.ClientX, args.ClientY); 
-		if (SidebarToggle && !isSidebar) 
-		{ 
-			if(!SidebarToggleFixed) 
-			{ 
-				SidebarToggle = false; 
-			} 
-		} 
-	}
-}
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
 
 
-<style>
-    .sidebar
-    {
-        width: 300px;
-        min-width: 300px;
-    }
+<CascadingAuthenticationState>
+		<AuthorizeView>
+			<NotAuthorized>
+			
+					
+					<Login />
+				
+		</NotAuthorized>
+			<Authorized>
+			
+			@* @if (!context.User.HasClaim("role", "CompanyAuthSuccess")  )
+			{
+				<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
+					<MudPaper Elevation="0" Class="pa-8 bl-login-card" >
+						<CompanySelection />
+					</MudPaper>
+				</MudContainer>
 
-    .e-filemanager .e-fe-popup.e-dialog.e-popup.e-dlg-resizable
-    {
-        z-index: 1202 !important;
-    }
+			}
+			else
+			{ *@
+				<div>
+						<BLinterface>
+							@Body
+						</BLinterface>
+				</div>
+			@*} *@
 
-    .navbar-toggler
-    {
-        display: inline-block;
-        border: none;
-        width: 24px;
-        height: 24px;
-        margin-left: 30px;
-        background-image: url('images/ToggleButton.png');
-        background-color: #05163C;
-        transform: scale(0.75);
-        transform-origin: left;
-        color: #ffffff;
-    }
+		</Authorized>
+		</AuthorizeView>
+	</CascadingAuthenticationState>
 
-
-    /* Content area styles */
-    .title
-    {
-        font-size: 20px;
-    }
-
-    /* Sidebar styles */
-    .e-sidebar .e-icons::before
-    {
-        font-size: 25px;
-    }
-
-    .e-sidebar:hover .e-open
-    {
-        display: inline-block;
-    }
-
-    .e-sidebar:hover .e-close
-    {
-        display: none;
-    }
-    /* dockbar icon Style */
-    .e-sidebar .home::before
-    {
-        content: '\e102';
-    }
-
-    .e-sidebar .profile::before
-    {
-        content: '\e10c';
-    }
-
-    .e-sidebar .info::before
-    {
-        content: '\e11b';
-    }
-
-    .e-sidebar .settings::before
-    {
-        content: '\e10b';
-    }
-
-    .e-sidebar .expand::before,
-    .e-sidebar.e-right.e-open .expand::before
-    {
-        content: '\e10f';
-    }
-
-    .e-sidebar.e-open .expand::before,
-    .e-sidebar.e-right .expand::before
-    {
-        content: '\e10e';
-    }
-
-    /* end of dockbar icon Style */
-
-    .e-sidebar.e-dock.e-close span.e-text
-    {
-        display: none;
-    }
-
-    .e-sidebar.e-dock.e-close .navbar-toggler
-    {
-        margin-left: 21px;
-    }
-
-    .e-sidebar.e-dock.e-close .nav.flex-column
-    {
-        margin-left: -8px;
-    }
-
-    .e-sidebar.e-dock.e-close .displayText
-    {
-        display: none;
-    }
-
-    .e-sidebar.e-dock.e-close .nav-item.px-3
-    {
-        width: 80px;
-    }
-
-    .e-sidebar.e-dock.e-close .separator
-    {
-        border: 1px solid #FFFFFF;
-        opacity: 0.14;
-        width: 45px;
-        margin: 1rem;
-        margin-top: 0px;
-        margin-left: 0.5rem;
-    }
-
-    .e-sidebar.e-dock.e-close .oi.oi-home
-    {
-        margin-left: -1px;
-    }
-
-    .e-sidebar.e-dock.e-close .syncfusion-blazor-icons
-    {
-        margin-left: -1px;
-    }
-
-    .e-sidebar.e-dock.e-open span.e-text
-    {
-        display: inline-block;
-    }
-
-    .e-sidebar li
-    {
-        list-style-type: none;
-        cursor: pointer;
-    }
-
-    .e-sidebar ul
-    {
-        padding: 0px;
-    }
-
-
-    .e-sidebar span.e-icons
-    {
-        color: #c0c2c5;
-        line-height: 2
-    }
-
-    .e-open .e-icons
-    {
-        margin-right: 16px;
-    }
-
-    .e-open .e-text
-    {
-        overflow: hidden;
-        font-size: 15px;
-    }
-
-    .sidebar-item
-    {
-        text-align: center;
-        border-bottom: 1px #e5e5e58a solid;
-    }
-
-    .e-sidebar.e-open .sidebar-item
-    {
-        text-align: left;
-        padding-left: 15px;
-        color: #c0c2c5;
-    }
-
-    .e-sidebar
-    {
-        background: #2d323e;
-        overflow: hidden;
-    }
-
-    @@font-face
-    {
-        font-family: 'e-icons';
-        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    .material #sidebar-wrapper .e-listview .e-list-item, .material .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid rgba(0,0,0,0.12);
-    }
-
-    .fabric #sidebar-wrapper .e-listview .e-list-item, .fabric .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #eaeaea;
-    }
-
-    .tailwind #sidebar-wrapper .e-listview .e-list-item, .tailwind .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #d7d7d7;
-    }
-
-    .bootstrap5 .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #dee2e6;
-    }
-    /* Specifies the styles for Sidebar, ListView, and Toolbar component related styles in dark themes */
-    .bootstrap5-dark .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #444c54;
-    }
-
-    .material-dark #sidebar-wrapper .e-listview .e-list-item, .material-dark .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #616161;
-    }
-
-    .fabric-dark #sidebar-wrapper .e-listview .e-list-item, .fabric-dark .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #414040;
-    }
-
-    .tailwind-dark #sidebar-wrapper .e-listview .e-list-item, .tailwind-dark .defaultToolbar.e-toolbar
-    {
-        border-bottom: 1px solid #4b5563;
-    }
-
-        .tailwind .defaultToolbar.e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-left,
-        .tailwind-dark .defaultToolbar.e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-left
-        {
-            line-height: initial;
-        }
-
-    #sidebar-wrapper .defaultToolbar .e-btn.e-icon-btn
-    {
-        border: 0px;
-        background-color: #f3f2f1;
-    }
-    /* end of sidebar styles */
-</style>
