@@ -23,6 +23,10 @@
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="24.1.46" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\bl360.clientInfrastructure\bl360.clientInfrastructure.csproj" />
+  </ItemGroup>
+
   
   
 </Project>

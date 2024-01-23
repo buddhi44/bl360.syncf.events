@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.maui", "bl360.maui.csproj", "{07D9198E-3E53-4F10-8A54-EC7BB015762F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bl360.maui", "bl360.maui.csproj", "{07D9198E-3E53-4F10-8A54-EC7BB015762F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.ui", "..\bl360.ui\bl360.ui\bl360.ui.csproj", "{06C9899F-4BAB-4A99-8E68-88ED866ACF3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bl360.ui", "..\bl360.ui\bl360.ui\bl360.ui.csproj", "{06C9899F-4BAB-4A99-8E68-88ED866ACF3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.domain", "..\bl360.domain\bl360.domain.csproj", "{0A377DBB-624C-43DA-86F1-43F4CD51721F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.clientInfrastructure", "..\bl360.clientInfrastructure\bl360.clientInfrastructure.csproj", "{E97F1A07-A971-4FC9-BC9F-BD62762942AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.shared", "..\bl360.shared\bl360.shared.csproj", "{1CB77857-ACCA-4BCB-91BD-58156C31AFE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bl360.ApplicationPro", "..\bl360.Application\bl360.ApplicationPro.csproj", "{A5417190-2A5F-4924-9A08-A7FC3BBF47B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +31,22 @@ Global
 		{06C9899F-4BAB-4A99-8E68-88ED866ACF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06C9899F-4BAB-4A99-8E68-88ED866ACF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06C9899F-4BAB-4A99-8E68-88ED866ACF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A377DBB-624C-43DA-86F1-43F4CD51721F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A377DBB-624C-43DA-86F1-43F4CD51721F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A377DBB-624C-43DA-86F1-43F4CD51721F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A377DBB-624C-43DA-86F1-43F4CD51721F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97F1A07-A971-4FC9-BC9F-BD62762942AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97F1A07-A971-4FC9-BC9F-BD62762942AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97F1A07-A971-4FC9-BC9F-BD62762942AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97F1A07-A971-4FC9-BC9F-BD62762942AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CB77857-ACCA-4BCB-91BD-58156C31AFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB77857-ACCA-4BCB-91BD-58156C31AFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB77857-ACCA-4BCB-91BD-58156C31AFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB77857-ACCA-4BCB-91BD-58156C31AFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5417190-2A5F-4924-9A08-A7FC3BBF47B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5417190-2A5F-4924-9A08-A7FC3BBF47B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5417190-2A5F-4924-9A08-A7FC3BBF47B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5417190-2A5F-4924-9A08-A7FC3BBF47B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
